@@ -29,19 +29,19 @@ Pod::Spec.new do |spec|
   
   spec.platform     = :ios, "11.0"
 
-  spec.source       = { :git => "https://github.com/xingtianwuganqi/ADDemo.git", :tag => "#{spec.version}" }
+  #spec.source       = { :git => "https://github.com/xingtianwuganqi/ADDemo.git", :tag => "#{spec.version}" }
+  spec.source           = { :git => '~/Desktop/Githup/iOS_BasicProject'}
+
   spec.source_files = "ADDemo/ADPage/*.swift"
   spec.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
 
   
   spec.frameworks   = ["Foundation","UIKit"]
 
-  #spec.dependency "BasicProject"
-  
+  spec.dependency 'BasicProject'
+
   spec.dependency "AnyThinkiOS"
   spec.dependency "AnyThinkiOS/AnyThinkTTAdapter"
   spec.dependency "AnyThinkGDTAdapter"
-  spec.subspec 'BasicProject' do |df|
-    df.source_files = "./../../iOS_BasicProject/**/*.swift"
-  end
+  
 end
