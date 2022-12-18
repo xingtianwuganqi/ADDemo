@@ -13,11 +13,11 @@
 		C46564DB294E01EF00B7980F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C46564D9294E01EF00B7980F /* Main.storyboard */; };
 		C46564DD294E01F000B7980F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C46564DC294E01F000B7980F /* Assets.xcassets */; };
 		C46564E0294E01F000B7980F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C46564DE294E01F000B7980F /* LaunchScreen.storyboard */; };
-		C46564EC294E06ED00B7980F /* DMADView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46564E8294E06ED00B7980F /* DMADView.swift */; };
 		C46564ED294E06ED00B7980F /* TopADManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46564E9294E06ED00B7980F /* TopADManager.swift */; };
-		C46564EE294E06ED00B7980F /* HomeListADCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46564EA294E06ED00B7980F /* HomeListADCell.swift */; };
-		C46564EF294E06ED00B7980F /* ShowADView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46564EB294E06ED00B7980F /* ShowADView.swift */; };
-		C46564F1294E092000B7980F /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46564F0294E092000B7980F /* TestViewController.swift */; };
+		C46564EF294E06ED00B7980F /* NativeADView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46564EB294E06ED00B7980F /* NativeADView.swift */; };
+		C46564F1294E092000B7980F /* NativeAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46564F0294E092000B7980F /* NativeAdViewController.swift */; };
+		C46564F5294F4D6C00B7980F /* BannerAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46564F4294F4D6C00B7980F /* BannerAdViewController.swift */; };
+		C46564F7294F4F2900B7980F /* BannerADView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46564F6294F4F2900B7980F /* BannerADView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,11 +30,11 @@
 		C46564DC294E01F000B7980F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C46564DF294E01F000B7980F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C46564E1294E01F000B7980F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C46564E8294E06ED00B7980F /* DMADView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMADView.swift; sourceTree = "<group>"; };
 		C46564E9294E06ED00B7980F /* TopADManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopADManager.swift; sourceTree = "<group>"; };
-		C46564EA294E06ED00B7980F /* HomeListADCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeListADCell.swift; sourceTree = "<group>"; };
-		C46564EB294E06ED00B7980F /* ShowADView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowADView.swift; sourceTree = "<group>"; };
-		C46564F0294E092000B7980F /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		C46564EB294E06ED00B7980F /* NativeADView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeADView.swift; sourceTree = "<group>"; };
+		C46564F0294E092000B7980F /* NativeAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdViewController.swift; sourceTree = "<group>"; };
+		C46564F4294F4D6C00B7980F /* BannerAdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdViewController.swift; sourceTree = "<group>"; };
+		C46564F6294F4F2900B7980F /* BannerADView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerADView.swift; sourceTree = "<group>"; };
 		DB2EFAF2861F920D78221DB5 /* Pods-ADDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ADDemo.release.xcconfig"; path = "Target Support Files/Pods-ADDemo/Pods-ADDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,7 +83,8 @@
 				C46564E7294E06ED00B7980F /* ADPage */,
 				C46564D3294E01EF00B7980F /* AppDelegate.swift */,
 				C46564D7294E01EF00B7980F /* ViewController.swift */,
-				C46564F0294E092000B7980F /* TestViewController.swift */,
+				C46564F0294E092000B7980F /* NativeAdViewController.swift */,
+				C46564F4294F4D6C00B7980F /* BannerAdViewController.swift */,
 				C46564D9294E01EF00B7980F /* Main.storyboard */,
 				C46564DC294E01F000B7980F /* Assets.xcassets */,
 				C46564DE294E01F000B7980F /* LaunchScreen.storyboard */,
@@ -95,10 +96,9 @@
 		C46564E7294E06ED00B7980F /* ADPage */ = {
 			isa = PBXGroup;
 			children = (
-				C46564E8294E06ED00B7980F /* DMADView.swift */,
 				C46564E9294E06ED00B7980F /* TopADManager.swift */,
-				C46564EA294E06ED00B7980F /* HomeListADCell.swift */,
-				C46564EB294E06ED00B7980F /* ShowADView.swift */,
+				C46564EB294E06ED00B7980F /* NativeADView.swift */,
+				C46564F6294F4F2900B7980F /* BannerADView.swift */,
 			);
 			path = ADPage;
 			sourceTree = "<group>";
@@ -244,12 +244,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C46564F1294E092000B7980F /* TestViewController.swift in Sources */,
-				C46564EC294E06ED00B7980F /* DMADView.swift in Sources */,
+				C46564F1294E092000B7980F /* NativeAdViewController.swift in Sources */,
+				C46564F5294F4D6C00B7980F /* BannerAdViewController.swift in Sources */,
 				C46564D8294E01EF00B7980F /* ViewController.swift in Sources */,
 				C46564D4294E01EF00B7980F /* AppDelegate.swift in Sources */,
-				C46564EE294E06ED00B7980F /* HomeListADCell.swift in Sources */,
-				C46564EF294E06ED00B7980F /* ShowADView.swift in Sources */,
+				C46564F7294F4F2900B7980F /* BannerADView.swift in Sources */,
+				C46564EF294E06ED00B7980F /* NativeADView.swift in Sources */,
 				C46564ED294E06ED00B7980F /* TopADManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -26,7 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         TopADManager.shareInstance.registerAD {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 TopADManager.shareInstance.loadSplashAD()
-//                ZMADManager.shareInstance.loadNativeAD()
+                TopADManager.shareInstance.loadNativeAD()
+                TopADManager.shareInstance.loadNativeAD(nativeID: NATIVEADKEY2)
+                TopADManager.shareInstance.loadBannerAD()
+                TopADManager.shareInstance.loadRewardVideoAD()
             }
         }
     }

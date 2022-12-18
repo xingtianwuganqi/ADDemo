@@ -5,14 +5,16 @@
 //  Created by jingjun on 2022/5/28.
 //
 
+import UIKit
 import Foundation
 import BasicProject
+import AnyThinkSDK
+import AppTrackingTransparency
 import AnyThinkSplash
 import AnyThinkNative
 import AnyThinkRewardedVideo
-import UIKit
-import AnyThinkSDK
-import AppTrackingTransparency
+import AnyThinkBanner
+import AnyThinkInterstitial
 
 
 class TopADManager: NSObject {
@@ -77,7 +79,7 @@ class TopADManager: NSObject {
         label.textColor = .white
         label.text = "真命天喵"
         label.textAlignment = .center
-        label.isUserInteractionEnabled = false
+        label.isUserInteractionEnabled = true
         
         let defaultADSourceStr = "{\"unit_id\":1830551,\"ad_type\":-1,\"nw_firm_id\":15,\"adapter_class\":\"ATTTSplashAdapter\",\"content\":\"{\\\"slot_id\\\":\\\"887788936\\\",\\\"personalized_template\\\":\\\"0\\\",\\\"zoomoutad_sw\\\":\\\"1\\\",\\\"button_type\\\":\\\"0\\\",\\\"dl_type\\\":\\\"0\\\",\\\"app_id\\\":\\\"5296075\\\"}\"}"
         let extra: [String: Any] = [
@@ -115,21 +117,23 @@ class TopADManager: NSObject {
     }
     
     // MARK: - 加载native广告
-    func loadNativeAD() {
+    func loadNativeAD(nativeID: String = NATIVEADKEY) {
 
-        if let status = ATAdManager.shared().checkNativeLoadStatus(forPlacementID: NATIVEADKEY), (status.isReady == true || status.isLoading == true) {
+        if let status = ATAdManager.shared().checkNativeLoadStatus(forPlacementID: nativeID), (status.isReady == true || status.isLoading == true) {
             return
         }
+        
         let extra: [String: Any] = [
             kATExtraInfoNativeAdSizeKey: CGSize(width: 375, height: 265),
+            kATNativeAdSizeToFitKey: true
         ]
 
-        ATAdManager.shared().loadAD(withPlacementID: NATIVEADKEY, extra: extra, delegate: self)
+        ATAdManager.shared().loadAD(withPlacementID: nativeID, extra: extra, delegate: self)
     }
     
     // MARK: native广告是否加载完成
-    func nativeIsReady() -> Bool{
-        return ATAdManager.shared().nativeAdReady(forPlacementID: NATIVEADKEY)
+    func nativeIsReady(nativeID: String = NATIVEADKEY) -> Bool{
+        return ATAdManager.shared().nativeAdReady(forPlacementID: nativeID)
     }
 
     //MARK: - 视频激励广告
@@ -162,12 +166,73 @@ class TopADManager: NSObject {
             self.loadRewardVideoAD()
         }
     }
+    
+    // MARK: - banner位广告
+    func loadBannerAD() {
+        let status = ATAdManager.shared().checkBannerLoadStatus(forPlacementID: BANNERKEY)
+        if (status.isReady == true || status.isLoading == true) {
+            return
+        }
+        let extra: [String: Any] = [
+            kATAdLoadingExtraBannerAdSizeKey: CGSize(width: SCREEN_WIDTH, height: 250)
+        ]
+        ATAdManager.shared().loadAD(withPlacementID: BANNERKEY, extra:extra , delegate: self)
+    }
+    
+    // MARK: banner位广告是否准备好
+    func bannerIsReady() -> Bool {
+        return ATAdManager.shared().bannerAdReady(forPlacementID: BANNERKEY)
+    }
+    
+    // MARK: 展示banner位广告
+    func showBannerAD() {
+        if ATAdManager.shared().bannerAdReady(forPlacementID: BANNERKEY) {
+//            ATAdManager.shared().show
+        }else{
+            let status = ATAdManager.shared().checkBannerLoadStatus(forPlacementID: BANNERKEY)
+            if (status.isReady != true || status.isLoading != true) {
+                return
+            }
+            self.loadBannerAD()
+        }
+    }
+    
+    // MARK: 插屏广告
+    func loadInterstitialAD() {
+        if let status = ATAdManager.shared().checkInterstitialLoadStatus(forPlacementID: INTERSTITIALKEY), (status.isReady == true || status.isLoading == true) {
+            return
+        }
+        let extra: [String: Any] = [
+            kATInterstitialExtraAdSizeKey: CGSize(width: SCREEN_WIDTH - 30, height: 300)
+        ]
+        ATAdManager.shared().loadAD(withPlacementID: INTERSTITIALKEY, extra:extra , delegate: self)
+    }
+    
+    // MARK: 插屏广告是否准备好
+    func interstitialADIsReady() -> Bool {
+        return ATAdManager.shared().interstitialReady(forPlacementID: INTERSTITIALKEY)
+    }
+    
+    // MARK: 展示插屏广告
+    func showInterstitialAD() {
+        if ATAdManager.shared().interstitialReady(forPlacementID: INTERSTITIALKEY){
+            ATAdManager.shared().showInterstitial(withPlacementID: INTERSTITIALKEY, in: Tool.shared.TopViewController(), delegate: self)
+        }else{
+            let status = ATAdManager.shared().checkBannerLoadStatus(forPlacementID: BANNERKEY)
+            if (status.isReady != true || status.isLoading != true) {
+                return
+            }
+            self.loadBannerAD()
+        }
+    }
 }
 
 // MARK: 开屏广告代理
 extension TopADManager: ATSplashDelegate {
     func splashDidShow(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
-        self.loadSplashAD()
+        if !TopADManager.shareInstance.splashIsReady() {
+            TopADManager.shareInstance.loadSplashAD()
+        }
     }
     
     func splashDidClick(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
@@ -236,7 +301,9 @@ extension TopADManager: ATSplashDelegate {
 extension TopADManager: ATRewardedVideoDelegate {
     func rewardedVideoDidStartPlaying(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         // 重新加载视频
-        self.loadRewardVideoAD()
+        if !TopADManager.shareInstance.rewardVideoAdIsReady() {
+            self.loadRewardVideoAD()
+        }
     }
     
     func rewardedVideoDidEndPlaying(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
@@ -280,19 +347,54 @@ extension TopADManager: ATRewardedVideoDelegate {
     func rewardedVideoAgainDidClick(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         
     }
+    
     // 再看一次激励成功
     func rewardedVideoAgainDidRewardSuccess(forPlacemenID placementID: String!, extra: [AnyHashable : Any]!) {
         self.rewardVideoRewardSuccess?()
     }
 }
 
+// MARK: 原生广告代理
 extension TopADManager: ATNativeADDelegate {
     func didShowNativeAd(in adView: ATNativeADView!, placementID: String!, extra: [AnyHashable : Any]!) {
-        
+        if !TopADManager.shareInstance.nativeIsReady(nativeID: placementID) {
+            TopADManager.shareInstance.loadNativeAD(nativeID: placementID)
+        }
     }
     
     func didClickNativeAd(in adView: ATNativeADView!, placementID: String!, extra: [AnyHashable : Any]!) {
         
     }
+    
+}
+
+// MARK: banner广告代理
+extension TopADManager: ATBannerDelegate {
+    func bannerView(_ bannerView: ATBannerView!, didShowAdWithPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+        if !TopADManager.shareInstance.bannerIsReady() {
+            TopADManager.shareInstance.loadBannerAD()
+        }
+    }
+    
+    func bannerView(_ bannerView: ATBannerView!, didClickWithPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+        
+    }
+}
+
+extension TopADManager: ATInterstitialDelegate {
+    func interstitialDidShow(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+        if !TopADManager.shareInstance.interstitialADIsReady() {
+            TopADManager.shareInstance.loadInterstitialAD()
+        }
+    }
+    
+    func interstitialDidClick(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+        
+    }
+    
+    func interstitialDidClose(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+        
+    }
+    
     
 }

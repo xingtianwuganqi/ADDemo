@@ -1,5 +1,5 @@
 //
-//  ShowADView.swift
+//  NativeADView.swift
 //  LoveCat
 //
 //  Created by jingjun on 2022/5/26.
@@ -8,7 +8,7 @@
 import UIKit
 import BasicProject
 import AnyThinkNative
-class ShowADView: UIView {
+class NativeADView: UIView {
     var adView: ATNativeADView?
         
     let width = SCREEN_WIDTH
@@ -23,7 +23,7 @@ class ShowADView: UIView {
     
     }
     
-    func showAD(rootVC: UIViewController) {
+    func showAD(nativeID: String = NATIVEADKEY) {
         let isReady = TopADManager.shareInstance.nativeIsReady()
         if isReady {
 
@@ -31,13 +31,13 @@ class ShowADView: UIView {
             config.adFrame = CGRect(x: 0, y: 0, width: width, height: height)
             config.delegate = TopADManager.shareInstance
             config.sizeToFit = true
-            config.rootViewController = rootVC
+            config.rootViewController = Tool.shared.TopViewController()
 
-            guard let offer = ATAdManager.shared().getNativeAdOffer(withPlacementID: NATIVEADKEY) else {
+            guard let offer = ATAdManager.shared().getNativeAdOffer(withPlacementID: nativeID) else {
                 return
             }
 
-            guard let nativeADView = ATNativeADView.init(configuration: config, currentOffer: offer, placementID: NATIVEADKEY) else {
+            guard let nativeADView = ATNativeADView.init(configuration: config, currentOffer: offer, placementID: nativeID) else {
                 return
             }
             self.subviews.forEach { view in
