@@ -1,5 +1,5 @@
 #
-#  Be sure to run `pod spec lint ADProject.podspec' to ensure this is a
+#  Be sure to run `pod spec lint ADDemo.podspec' to ensure this is a
 #  valid spec and to remove all comments including this before submitting the spec.
 #
 #  To learn more about Podspec attributes see https://guides.cocoapods.org/syntax/podspec.html
@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |spec|
 
-  spec.name         = "ADProject"
+  spec.name         = "ADDemo"
   spec.version      = "0.0.1"
   spec.summary      = "广告项目"
 
@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   广告
                    DESC
 
-  spec.homepage     = "http://EXAMPLE/ADProject"
+  spec.homepage     = "http://EXAMPLE/ADDemo"
 
 
   spec.license      = { :type => "MIT" }
@@ -38,7 +38,7 @@ Pod::Spec.new do |spec|
   
   spec.frameworks   = ["Foundation","UIKit"]
 
-  spec.dependency 'BasicProject'
+  spec.dependency "BasicProject"
 
   spec.dependency "AnyThinkiOS"
   spec.dependency "AnyThinkiOS/AnyThinkTTAdapter"
