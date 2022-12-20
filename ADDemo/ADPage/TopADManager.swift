@@ -17,7 +17,7 @@ import AnyThinkBanner
 import AnyThinkInterstitial
 
 
-class TopADManager: NSObject {
+public class TopADManager: NSObject {
     
     static let shareInstance = TopADManager()
     
