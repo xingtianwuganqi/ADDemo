@@ -1,0 +1,6 @@
+framework module BasicProject {
+  umbrella header "BasicProject-umbrella.h"
+
+  export *
+  module * { export * }
+}
