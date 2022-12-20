@@ -37,14 +37,9 @@ Pod::Spec.new do |spec|
   
   spec.frameworks   = ["Foundation","UIKit"]
 
-  #spec.dependency 'BasicProject'
+  spec.dependency 'BasicProject'
   spec.dependency 'AnyThinkiOS'
-  spec.dependency 'AnyThinkiOS/AnyThinkTTAdapter'
+  #spec.dependency 'AnyThinkiOS/AnyThinkTTAdapter'
   spec.dependency 'AnyThinkGDTAdapter'
-  
-  spec.subspec 'BasicProject' do |ss|
-    ss.source_files   = "./../iOS_BasicProject/BasicProject/Thrpart/*.{h,m}","./../iOS_BasicProject/BasicProject/Base/*.swift", "BasicProject/Common/*.swift", "./../iOS_BasicProject/BasicProject/Extension/*.swift"'
-    ss.framework  = ["Foundation","UIKit","Photos"]
-  end
 
 end
