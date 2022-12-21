@@ -8,7 +8,7 @@
 import UIKit
 import BasicProject
 import AnyThinkNative
-class NativeADView: UIView {
+public class NativeADView: UIView {
     var adView: ATNativeADView?
         
     let width = SCREEN_WIDTH
@@ -23,7 +23,7 @@ class NativeADView: UIView {
     
     }
     
-    func showAD(nativeID: String = NATIVEADKEY) {
+    public func showAD(nativeID: String = NATIVEADKEY) {
         let isReady = TopADManager.shareInstance.nativeIsReady()
         if isReady {
 

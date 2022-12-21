@@ -9,7 +9,7 @@ import UIKit
 import BasicProject
 import AnyThinkBanner
 
-class BannerADView: UIView {
+public class BannerADView: UIView {
 
     var adView: ATBannerView?
         
@@ -29,7 +29,7 @@ class BannerADView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func showBannerAD() {
+    public func showBannerAD() {
         let isRead = TopADManager.shareInstance.bannerIsReady()
         if isRead {
             self.subviews.forEach { view in
