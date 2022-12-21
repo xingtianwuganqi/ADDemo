@@ -30,6 +30,7 @@ Pod::Spec.new do |spec|
    
   spec.source_files = "ADDemo/ADPage/*.swift"
   spec.frameworks   = ["Foundation","UIKit"]
+  spec.static_framework = true
 
   spec.dependency 'BasicProject'
   spec.dependency 'AnyThinkiOS','6.1.41'

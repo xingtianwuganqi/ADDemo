@@ -8,15 +8,6 @@
 import UIKit
 import MBProgressHUD
 
-let ADAPPID = "a628a37c6257cf"
-let ADAPPKEY = "34957f626411ed7ac73916e8b4031128"
-let NATIVEADKEY = "b639c3454a57c3"
-let NATIVEADKEY2 = "b628e3b04c9f7a"
-let SPLASHKEY = "b628a391c9712a"
-let REWARDVIDEOKEY = "b628a396ea0887"
-let BANNERKEY = "b639ef04a6951e"
-let INTERSTITIALKEY = "b628a3952eb140"
-
 class ViewController: UIViewController {
     
     lazy var tableView : UITableView = {

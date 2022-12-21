@@ -16,6 +16,15 @@ import AnyThinkRewardedVideo
 import AnyThinkBanner
 import AnyThinkInterstitial
 
+public let ADAPPID = "a628a37c6257cf"
+public let ADAPPKEY = "34957f626411ed7ac73916e8b4031128"
+public let NATIVEADKEY = "b639c3454a57c3"
+public let NATIVEADKEY2 = "b628e3b04c9f7a"
+public let SPLASHKEY = "b628a391c9712a"
+public let REWARDVIDEOKEY = "b628a396ea0887"
+public let BANNERKEY = "b639ef04a6951e"
+public let INTERSTITIALKEY = "b628a3952eb140"
+
 
 public class TopADManager: NSObject {
     
@@ -36,18 +45,19 @@ public class TopADManager: NSObject {
         return button
     }()
     
-    var adDidLoadFinishCallBack: ((String) -> Void)?
-    // 激励视频激励回调
-    var rewardVideoRewardSuccess: (() -> Void)?
+    /// 广告加载完成回调
+    public var adDidLoadFinishCallBack: ((String) -> Void)?
+    /// 激励视频激励回调
+    public var rewardVideoRewardSuccess: (() -> Void)?
     
-    // 选择关闭回调
-    var nativeADClose: ((String,Int) -> Void)?
+    /// 选择关闭回调
+    public var nativeADClose: ((String,Int) -> Void)?
     
-    // 激励广告加载状态: 0 加载失败，加载成功
-    var rewardVideoLoaded: Int?
+    /// 激励广告加载状态: 0 加载失败，加载成功
+    public var rewardVideoLoaded: Int?
     
     
-    func registerAD(completion: (() -> Void)?) {
+    public func registerAD(completion: (() -> Void)?) {
         #if DEBUG
         ATAPI.setLogEnabled(true)
         #endif
@@ -67,7 +77,7 @@ public class TopADManager: NSObject {
     }
     
     // MARK: - 开屏广告
-    func loadSplashAD() {
+    public func loadSplashAD() {
         
         if  let status = ATAdManager.shared().checkSplashLoadStatus(forPlacementID: SPLASHKEY), (status.isReady == true || status.isLoading == true) {
             return
@@ -89,12 +99,12 @@ public class TopADManager: NSObject {
     }
     
     // MARK: 开屏广告是否准备好
-    func splashIsReady() -> Bool {
+    public func splashIsReady() -> Bool {
         return ATAdManager.shared().splashReady(forPlacementID: SPLASHKEY)
     }
     
     // MARK: 展示开屏广告
-    func showSplashAD() {
+    public func showSplashAD() {
         if (ATAdManager.shared().splashReady(forPlacementID: SPLASHKEY)) {
             let window: UIWindow?
             if #available(iOS 13.0, *) {
@@ -117,7 +127,7 @@ public class TopADManager: NSObject {
     }
     
     // MARK: - 加载native广告
-    func loadNativeAD(nativeID: String = NATIVEADKEY) {
+    public func loadNativeAD(nativeID: String = NATIVEADKEY) {
 
         if let status = ATAdManager.shared().checkNativeLoadStatus(forPlacementID: nativeID), (status.isReady == true || status.isLoading == true) {
             return
@@ -132,12 +142,12 @@ public class TopADManager: NSObject {
     }
     
     // MARK: native广告是否加载完成
-    func nativeIsReady(nativeID: String = NATIVEADKEY) -> Bool{
+    public func nativeIsReady(nativeID: String = NATIVEADKEY) -> Bool{
         return ATAdManager.shared().nativeAdReady(forPlacementID: nativeID)
     }
 
     //MARK: - 视频激励广告
-    func loadRewardVideoAD() {
+    public func loadRewardVideoAD() {
         if let status = ATAdManager.shared().checkRewardedVideoLoadStatus(forPlacementID: REWARDVIDEOKEY), (status.isReady == true || status.isLoading == true) {
             return
         }
@@ -151,12 +161,12 @@ public class TopADManager: NSObject {
 
 
     // MARK: 激励视频是否准备好
-    func rewardVideoAdIsReady() -> Bool {
+    public func rewardVideoAdIsReady() -> Bool {
         return ATAdManager.shared().rewardedVideoReady(forPlacementID: REWARDVIDEOKEY)
     }
 
     // MARK: 展示视频广告
-    func showRewardVideoAD() {
+    public func showRewardVideoAD() {
         if ATAdManager.shared().rewardedVideoReady(forPlacementID: REWARDVIDEOKEY) {
             ATAdManager.shared().showRewardedVideo(withPlacementID: REWARDVIDEOKEY, in: Tool.shared.TopViewController(), delegate: self)
         }else{
@@ -168,7 +178,7 @@ public class TopADManager: NSObject {
     }
     
     // MARK: - banner位广告
-    func loadBannerAD() {
+    public func loadBannerAD() {
         let status = ATAdManager.shared().checkBannerLoadStatus(forPlacementID: BANNERKEY)
         if (status.isReady == true || status.isLoading == true) {
             return
@@ -180,12 +190,12 @@ public class TopADManager: NSObject {
     }
     
     // MARK: banner位广告是否准备好
-    func bannerIsReady() -> Bool {
+    public func bannerIsReady() -> Bool {
         return ATAdManager.shared().bannerAdReady(forPlacementID: BANNERKEY)
     }
     
     // MARK: 展示banner位广告
-    func showBannerAD() {
+    public func showBannerAD() {
         if ATAdManager.shared().bannerAdReady(forPlacementID: BANNERKEY) {
 //            ATAdManager.shared().show
         }else{
@@ -198,7 +208,7 @@ public class TopADManager: NSObject {
     }
     
     // MARK: 插屏广告
-    func loadInterstitialAD() {
+    public func loadInterstitialAD() {
         if let status = ATAdManager.shared().checkInterstitialLoadStatus(forPlacementID: INTERSTITIALKEY), (status.isReady == true || status.isLoading == true) {
             return
         }
@@ -209,12 +219,12 @@ public class TopADManager: NSObject {
     }
     
     // MARK: 插屏广告是否准备好
-    func interstitialADIsReady() -> Bool {
+    public func interstitialADIsReady() -> Bool {
         return ATAdManager.shared().interstitialReady(forPlacementID: INTERSTITIALKEY)
     }
     
     // MARK: 展示插屏广告
-    func showInterstitialAD() {
+    public func showInterstitialAD() {
         if ATAdManager.shared().interstitialReady(forPlacementID: INTERSTITIALKEY){
             ATAdManager.shared().showInterstitial(withPlacementID: INTERSTITIALKEY, in: Tool.shared.TopViewController(), delegate: self)
         }else{
@@ -229,21 +239,21 @@ public class TopADManager: NSObject {
 
 // MARK: 开屏广告代理
 extension TopADManager: ATSplashDelegate {
-    func splashDidShow(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func splashDidShow(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         if !TopADManager.shareInstance.splashIsReady() {
             TopADManager.shareInstance.loadSplashAD()
         }
     }
     
-    func splashDidClick(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func splashDidClick(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         
     }
     
-    func splashDidClose(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func splashDidClose(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         
     }
     
-    func splashCountdownTime(_ countdown: Int, forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func splashCountdownTime(_ countdown: Int, forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         // 倒计时
         DispatchQueue.main.async {
             let title = String(format: "%lds | 跳过", countdown / 1000)
@@ -253,24 +263,24 @@ extension TopADManager: ATSplashDelegate {
         }
     }
 
-    func splashDeepLinkOrJump(forPlacementID placementID: String!, extra: [AnyHashable : Any]!, result success: Bool) {
+    public func splashDeepLinkOrJump(forPlacementID placementID: String!, extra: [AnyHashable : Any]!, result success: Bool) {
 
     }
 
-    func splashDetailDidClosed(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func splashDetailDidClosed(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
 
     }
 
-    func splashZoomOutViewDidClick(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func splashZoomOutViewDidClick(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
 
     }
 
-    func splashZoomOutViewDidClose(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func splashZoomOutViewDidClose(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
 
     }
     
     // 公用的方法
-    func didFinishLoadingAD(withPlacementID placementID: String!) {
+    public func didFinishLoadingAD(withPlacementID placementID: String!) {
         if placementID == SPLASHKEY {
             printLog("========== 开屏广告加载成功")
         }else if placementID == REWARDVIDEOKEY {
@@ -282,7 +292,7 @@ extension TopADManager: ATSplashDelegate {
         adDidLoadFinishCallBack?(placementID)
     }
     
-    func didFailToLoadAD(withPlacementID placementID: String!, error: Error!) {
+    public func didFailToLoadAD(withPlacementID placementID: String!, error: Error!) {
         printLog("广告加载失败 --- \(error.localizedDescription)")
         if placementID == SPLASHKEY {
             printLog("========== 开屏广告加载失败")
@@ -299,70 +309,70 @@ extension TopADManager: ATSplashDelegate {
 
 // MARK: 激励视频广告代理
 extension TopADManager: ATRewardedVideoDelegate {
-    func rewardedVideoDidStartPlaying(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func rewardedVideoDidStartPlaying(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         // 重新加载视频
         if !TopADManager.shareInstance.rewardVideoAdIsReady() {
             self.loadRewardVideoAD()
         }
     }
     
-    func rewardedVideoDidEndPlaying(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func rewardedVideoDidEndPlaying(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         
     }
     
     // 播放失败，直接让
-    func rewardedVideoDidFailToPlay(forPlacementID placementID: String!, error: Error!, extra: [AnyHashable : Any]!) {
+    public func rewardedVideoDidFailToPlay(forPlacementID placementID: String!, error: Error!, extra: [AnyHashable : Any]!) {
         self.rewardVideoRewardSuccess?()
     }
     
-    func rewardedVideoDidClose(forPlacementID placementID: String!, rewarded: Bool, extra: [AnyHashable : Any]!) {
+    public func rewardedVideoDidClose(forPlacementID placementID: String!, rewarded: Bool, extra: [AnyHashable : Any]!) {
         
     }
     
-    func rewardedVideoDidClick(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func rewardedVideoDidClick(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         
     }
     // 激励成功
-    func rewardedVideoDidRewardSuccess(forPlacemenID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func rewardedVideoDidRewardSuccess(forPlacemenID placementID: String!, extra: [AnyHashable : Any]!) {
         // 激励成功
         self.rewardVideoRewardSuccess?()
     }
     
-    func rewardedVideoDidDeepLinkOrJump(forPlacementID placementID: String!, extra: [AnyHashable : Any]!, result success: Bool) {
+    public func rewardedVideoDidDeepLinkOrJump(forPlacementID placementID: String!, extra: [AnyHashable : Any]!, result success: Bool) {
         
     }
     
-    func rewardedVideoAgainDidStartPlaying(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func rewardedVideoAgainDidStartPlaying(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         
     }
     
-    func rewardedVideoAgainDidEndPlaying(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func rewardedVideoAgainDidEndPlaying(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         
     }
     
-    func rewardedVideoAgainDidFailToPlay(forPlacementID placementID: String!, error: Error!, extra: [AnyHashable : Any]!) {
+    public func rewardedVideoAgainDidFailToPlay(forPlacementID placementID: String!, error: Error!, extra: [AnyHashable : Any]!) {
         printLog("VideoAgain Error\(error.localizedDescription)")
     }
     
-    func rewardedVideoAgainDidClick(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func rewardedVideoAgainDidClick(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         
     }
     
     // 再看一次激励成功
-    func rewardedVideoAgainDidRewardSuccess(forPlacemenID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func rewardedVideoAgainDidRewardSuccess(forPlacemenID placementID: String!, extra: [AnyHashable : Any]!) {
         self.rewardVideoRewardSuccess?()
     }
 }
 
 // MARK: 原生广告代理
 extension TopADManager: ATNativeADDelegate {
-    func didShowNativeAd(in adView: ATNativeADView!, placementID: String!, extra: [AnyHashable : Any]!) {
+    public func didShowNativeAd(in adView: ATNativeADView!, placementID: String!, extra: [AnyHashable : Any]!) {
         if !TopADManager.shareInstance.nativeIsReady(nativeID: placementID) {
             TopADManager.shareInstance.loadNativeAD(nativeID: placementID)
         }
     }
     
-    func didClickNativeAd(in adView: ATNativeADView!, placementID: String!, extra: [AnyHashable : Any]!) {
+    public func didClickNativeAd(in adView: ATNativeADView!, placementID: String!, extra: [AnyHashable : Any]!) {
         
     }
     
@@ -370,29 +380,29 @@ extension TopADManager: ATNativeADDelegate {
 
 // MARK: banner广告代理
 extension TopADManager: ATBannerDelegate {
-    func bannerView(_ bannerView: ATBannerView!, didShowAdWithPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func bannerView(_ bannerView: ATBannerView!, didShowAdWithPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         if !TopADManager.shareInstance.bannerIsReady() {
             TopADManager.shareInstance.loadBannerAD()
         }
     }
     
-    func bannerView(_ bannerView: ATBannerView!, didClickWithPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func bannerView(_ bannerView: ATBannerView!, didClickWithPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         
     }
 }
 
 extension TopADManager: ATInterstitialDelegate {
-    func interstitialDidShow(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func interstitialDidShow(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         if !TopADManager.shareInstance.interstitialADIsReady() {
             TopADManager.shareInstance.loadInterstitialAD()
         }
     }
     
-    func interstitialDidClick(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func interstitialDidClick(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         
     }
     
-    func interstitialDidClose(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+    public func interstitialDidClose(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         
     }
     
