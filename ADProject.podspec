@@ -1,5 +1,5 @@
 #
-#  Be sure to run `pod spec lint ADDemo.podspec' to ensure this is a
+#  Be sure to run `pod spec lint ADProject.podspec' to ensure this is a
 #  valid spec and to remove all comments including this before submitting the spec.
 #
 #  To learn more about Podspec attributes see https://guides.cocoapods.org/syntax/podspec.html
@@ -8,21 +8,18 @@
 
 Pod::Spec.new do |spec|
 
-  spec.name         = "ADDemo"
+
+  spec.name         = "ADProject"
   spec.version      = "0.0.1"
-  spec.summary      = "广告项目"
+  spec.summary      = "ADProject Demo"
 
   spec.description  = <<-DESC
-  广告
+   a ADProject Demo
                    DESC
 
-  spec.homepage     = "http://EXAMPLE/ADDemo"
+  spec.homepage     = "https://github.com/xingtianwuganqi/ADDemo"
 
-
-  spec.license      = { :type => "MIT" }
-
-  spec.platform     = :ios
-  
+    spec.license      = { :type => "MIT", :file => "LICENSE" }
   spec.swift_versions = ['5.0', '5.1', '5.2', '5.3']
   
   spec.author       = { "jingjun" => "rxswift@126.com" }
@@ -30,16 +27,14 @@ Pod::Spec.new do |spec|
   spec.platform     = :ios, "11.0"
 
   spec.source       = { :git => "https://github.com/xingtianwuganqi/ADDemo.git", :tag => "#{spec.version}" }
-
+   
   spec.source_files = "ADDemo/ADPage/*.swift"
-  spec.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
-
-  
   spec.frameworks   = ["Foundation","UIKit"]
 
   spec.dependency 'BasicProject'
-  spec.dependency 'AnyThinkiOS'
-  #spec.dependency 'AnyThinkiOS/AnyThinkTTAdapter'
-  spec.dependency 'AnyThinkGDTAdapter'
+  spec.dependency 'AnyThinkiOS','6.1.41'
+  spec.dependency 'AnyThinkiOS/AnyThinkTTAdapter','6.1.41'
+  spec.dependency 'AnyThinkGDTAdapter','6.1.41.1'
+
 
 end
