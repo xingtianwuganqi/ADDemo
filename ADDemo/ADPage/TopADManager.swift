@@ -28,7 +28,10 @@ public let INTERSTITIALKEY = "b628a3952eb140"
 
 public class TopADManager: NSObject {
     
-    static let shareInstance = TopADManager()
+    public static let shareInstance = TopADManager()
+    
+    public let nativeWidth = SCREEN_WIDTH
+    public let nativeHeight = SCREEN_WIDTH * 265 / 375
     
     private override init() {
         
@@ -145,6 +148,40 @@ public class TopADManager: NSObject {
     public func nativeIsReady(nativeID: String = NATIVEADKEY) -> Bool{
         return ATAdManager.shared().nativeAdReady(forPlacementID: nativeID)
     }
+    
+    // MARK: native 广告的config
+    public func getNativeConfig() -> ATNativeADConfiguration {
+        let config = ATNativeADConfiguration.init()
+        config.adFrame = CGRect(x: 0, y: 0, width: nativeWidth, height: nativeHeight)
+        config.delegate = TopADManager.shareInstance
+        config.sizeToFit = true
+        config.rootViewController = Tool.shared.TopViewController()
+        return config
+    }
+    
+    // MARK: 获取nativeADView
+    public func getNativeADView(nativeID: String = NATIVEADKEY,config: ATNativeADConfiguration, offer: ATNativeAdOffer) -> ATNativeADView? {
+        if let nativeADView = ATNativeADView.init(configuration: config, currentOffer: offer, placementID: nativeID) {
+            let nativeADRenderType = nativeADView.getCurrentNativeAdRenderType()
+            if nativeADRenderType == .express {
+                // 原始模板
+                printLog("原始模板")
+            }else{
+                printLog("原生自渲染")
+
+            }
+
+            //渲染广告
+            offer.renderer(with: config, selfRenderView: nil, nativeADView: nativeADView)
+            
+            nativeADView.frame = CGRect(x: 0, y: 0, width: nativeWidth, height: nativeHeight)
+            return nativeADView
+        }else{
+            return nil
+        }
+    }
+
+    
 
     //MARK: - 视频激励广告
     public func loadRewardVideoAD() {
@@ -279,7 +316,7 @@ extension TopADManager: ATSplashDelegate {
 
     }
     
-    // 公用的方法
+    // MARK: - 公用的方法
     public func didFinishLoadingAD(withPlacementID placementID: String!) {
         if placementID == SPLASHKEY {
             printLog("========== 开屏广告加载成功")

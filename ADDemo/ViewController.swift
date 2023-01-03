@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         return tableview
     }()
     
-    var list = ["开屏广告","banner广告", "插屏广告", "信息流广告1（图片）", "信息流广告2", "激励视频"]
+    var list = ["开屏广告","banner广告", "插屏广告", "信息流广告1（图片）", "信息流广告2", "激励视频", "native广告列表"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +106,15 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             }else{
                 MBProgressHUD.xy_show("激励视频未加载完成")
                 TopADManager.shareInstance.loadRewardVideoAD()
+            }
+        case "native广告列表":
+            if TopADManager.shareInstance.nativeIsReady() {
+                // 跳转到测试页面
+                let test = NativeListController.init()
+                self.navigationController?.pushViewController(test, animated: true)
+            }else{
+                MBProgressHUD.xy_show("信息流广告1（图片）[列表]未加载完成")
+                TopADManager.shareInstance.loadNativeAD()
             }
         default:
             break

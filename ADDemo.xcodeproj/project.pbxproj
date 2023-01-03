@@ -18,6 +18,9 @@
 		C46564F1294E092000B7980F /* NativeAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46564F0294E092000B7980F /* NativeAdViewController.swift */; };
 		C46564F5294F4D6C00B7980F /* BannerAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46564F4294F4D6C00B7980F /* BannerAdViewController.swift */; };
 		C46564F7294F4F2900B7980F /* BannerADView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46564F6294F4F2900B7980F /* BannerADView.swift */; };
+		C471EF98296474980089A640 /* NativeListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C471EF97296474980089A640 /* NativeListController.swift */; };
+		C471EF9A29647DEB0089A640 /* ATDemoOfferAdMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C471EF9929647DEB0089A640 /* ATDemoOfferAdMode.swift */; };
+		C471EF9C296482B40089A640 /* NativeADTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C471EF9B296482B40089A640 /* NativeADTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +38,9 @@
 		C46564F0294E092000B7980F /* NativeAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdViewController.swift; sourceTree = "<group>"; };
 		C46564F4294F4D6C00B7980F /* BannerAdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdViewController.swift; sourceTree = "<group>"; };
 		C46564F6294F4F2900B7980F /* BannerADView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerADView.swift; sourceTree = "<group>"; };
+		C471EF97296474980089A640 /* NativeListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeListController.swift; sourceTree = "<group>"; };
+		C471EF9929647DEB0089A640 /* ATDemoOfferAdMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATDemoOfferAdMode.swift; sourceTree = "<group>"; };
+		C471EF9B296482B40089A640 /* NativeADTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeADTableCell.swift; sourceTree = "<group>"; };
 		DB2EFAF2861F920D78221DB5 /* Pods-ADDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ADDemo.release.xcconfig"; path = "Target Support Files/Pods-ADDemo/Pods-ADDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,6 +91,8 @@
 				C46564D7294E01EF00B7980F /* ViewController.swift */,
 				C46564F0294E092000B7980F /* NativeAdViewController.swift */,
 				C46564F4294F4D6C00B7980F /* BannerAdViewController.swift */,
+				C471EF97296474980089A640 /* NativeListController.swift */,
+				C471EF9929647DEB0089A640 /* ATDemoOfferAdMode.swift */,
 				C46564D9294E01EF00B7980F /* Main.storyboard */,
 				C46564DC294E01F000B7980F /* Assets.xcassets */,
 				C46564DE294E01F000B7980F /* LaunchScreen.storyboard */,
@@ -99,6 +107,7 @@
 				C46564E9294E06ED00B7980F /* TopADManager.swift */,
 				C46564EB294E06ED00B7980F /* NativeADView.swift */,
 				C46564F6294F4F2900B7980F /* BannerADView.swift */,
+				C471EF9B296482B40089A640 /* NativeADTableCell.swift */,
 			);
 			path = ADPage;
 			sourceTree = "<group>";
@@ -246,10 +255,13 @@
 			files = (
 				C46564F1294E092000B7980F /* NativeAdViewController.swift in Sources */,
 				C46564F5294F4D6C00B7980F /* BannerAdViewController.swift in Sources */,
+				C471EF9A29647DEB0089A640 /* ATDemoOfferAdMode.swift in Sources */,
 				C46564D8294E01EF00B7980F /* ViewController.swift in Sources */,
 				C46564D4294E01EF00B7980F /* AppDelegate.swift in Sources */,
+				C471EF98296474980089A640 /* NativeListController.swift in Sources */,
 				C46564F7294F4F2900B7980F /* BannerADView.swift in Sources */,
 				C46564EF294E06ED00B7980F /* NativeADView.swift in Sources */,
+				C471EF9C296482B40089A640 /* NativeADTableCell.swift in Sources */,
 				C46564ED294E06ED00B7980F /* TopADManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
