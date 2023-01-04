@@ -18,7 +18,7 @@ public class NativeADTableCell: UITableViewCell {
         self.backgroundColor = .white
     }
     
-    func setADView(_ adview: ATNativeADView?) {
+    public func setADView(_ adview: ATNativeADView?) {
         guard let adview = adview else {
             return
         }
@@ -29,7 +29,8 @@ public class NativeADTableCell: UITableViewCell {
         self.adView = nil
         self.contentView.addSubview(adview)
         adview.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.left.right.top.bottom.equalToSuperview()
+            make.height.equalTo(TopADManager.shareInstance.nativeHeight)
         }
         self.adView = adview
     }

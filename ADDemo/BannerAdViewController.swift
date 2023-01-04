@@ -22,6 +22,7 @@ class BannerAdViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.view.addSubview(bannerAdView)
+        bannerAdView.frame = CGRect(x: 0, y: 300, width: SCREEN_WIDTH, height: ceil(SCREEN_WIDTH * 90 / 600))
         self.showBannerView()
     }
     

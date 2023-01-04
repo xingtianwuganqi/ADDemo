@@ -181,6 +181,11 @@ public class TopADManager: NSObject {
         }
     }
 
+    // MARK: 获取广告offer
+    public func getNativeOffer(adID: String = NATIVEADKEY) -> ATNativeAdOffer? {
+        let offer = ATAdManager.shared().getNativeAdOffer(withPlacementID: adID)
+        return offer
+    }
     
 
     //MARK: - 视频激励广告
@@ -221,7 +226,7 @@ public class TopADManager: NSObject {
             return
         }
         let extra: [String: Any] = [
-            kATAdLoadingExtraBannerAdSizeKey: CGSize(width: SCREEN_WIDTH, height: 250)
+            kATAdLoadingExtraBannerAdSizeKey: CGSize(width: SCREEN_WIDTH, height: ceil(SCREEN_WIDTH * 90 / 600))
         ]
         ATAdManager.shared().loadAD(withPlacementID: BANNERKEY, extra:extra , delegate: self)
     }
@@ -234,7 +239,7 @@ public class TopADManager: NSObject {
     // MARK: 展示banner位广告
     public func showBannerAD() {
         if ATAdManager.shared().bannerAdReady(forPlacementID: BANNERKEY) {
-//            ATAdManager.shared().show
+            
         }else{
             let status = ATAdManager.shared().checkBannerLoadStatus(forPlacementID: BANNERKEY)
             if (status.isReady != true || status.isLoading != true) {

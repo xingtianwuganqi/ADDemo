@@ -14,11 +14,7 @@ public class BannerADView: UIView {
     var adView: ATBannerView?
         
     let width = SCREEN_WIDTH
-    let height = SCREEN_WIDTH
-    
-    // 加载广告结果：0失败，1成功，3关闭广告
-    var loadADFinish: ((Int) -> Void)?
-    
+    let height = ceil(SCREEN_WIDTH * 90 / 600)
 
     override init(frame: CGRect) {
         super.init(frame: frame)

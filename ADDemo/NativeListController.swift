@@ -25,7 +25,7 @@ class NativeListController: UIViewController {
         return tableview
     }()
 
-    var dataSources: [ATDemoOfferAdMode] = []
+    var dataSources: [ATNativeListOfferAdMode] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +54,7 @@ class NativeListController: UIViewController {
     
     func setData() {
         if let offer = self.getOfferAndLoadNext() {
-            var offerModel = ATDemoOfferAdMode.init()
+            var offerModel = ATNativeListOfferAdMode.init()
             let config = TopADManager.shareInstance.getNativeConfig()
             offerModel.nativeADView = TopADManager.shareInstance.getNativeADView(config: config, offer: offer)
             offerModel.offer = offer
@@ -62,7 +62,7 @@ class NativeListController: UIViewController {
             self.dataSources.append(offerModel)
         }
         for _ in 0..<5 {
-            var offerModel = ATDemoOfferAdMode.init()
+            var offerModel = ATNativeListOfferAdMode.init()
             offerModel.isNativeAd = false
             self.dataSources.append(offerModel)
         }

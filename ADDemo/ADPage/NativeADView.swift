@@ -13,10 +13,6 @@ public class NativeADView: UIView {
         
     let width = SCREEN_WIDTH
     let height = SCREEN_WIDTH * 265 / 375
-    
-    // 加载广告结果：0失败，1成功，3关闭广告
-    var loadADFinish: ((Int) -> Void)?
-    
 
     override init(frame: CGRect) {
         super.init(frame: frame)
