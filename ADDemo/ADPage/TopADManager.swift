@@ -226,7 +226,7 @@ public class TopADManager: NSObject {
             return
         }
         let extra: [String: Any] = [
-            kATAdLoadingExtraBannerAdSizeKey: CGSize(width: SCREEN_WIDTH, height: ceil(SCREEN_WIDTH * 90 / 600))
+            kATAdLoadingExtraBannerAdSizeKey: CGSize(width: (SCREEN_WIDTH - 30), height: ceil((SCREEN_WIDTH - 30) * 90 / 600))
         ]
         ATAdManager.shared().loadAD(withPlacementID: BANNERKEY, extra:extra , delegate: self)
     }

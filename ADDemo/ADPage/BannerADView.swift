@@ -11,10 +11,10 @@ import AnyThinkBanner
 
 public class BannerADView: UIView {
 
-    var adView: ATBannerView?
+    public var adView: ATBannerView?
         
-    let width = SCREEN_WIDTH
-    let height = ceil(SCREEN_WIDTH * 90 / 600)
+    let width = (SCREEN_WIDTH - 30)
+    let height = ceil((SCREEN_WIDTH - 30) * 90 / 600)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
