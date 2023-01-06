@@ -15,6 +15,7 @@ import AnyThinkNative
 import AnyThinkRewardedVideo
 import AnyThinkBanner
 import AnyThinkInterstitial
+import RxSwift
 
 public let ADAPPID = "a628a37c6257cf"
 public let ADAPPKEY = "34957f626411ed7ac73916e8b4031128"
@@ -52,12 +53,15 @@ public class TopADManager: NSObject {
     public var adDidLoadFinishCallBack: ((String) -> Void)?
     /// 激励视频激励回调
     public var rewardVideoRewardSuccess: (() -> Void)?
-    
-    /// 选择关闭回调
-    public var nativeADClose: ((String,Int) -> Void)?
-    
+        
     /// 激励广告加载状态: 0 加载失败，加载成功
     public var rewardVideoLoaded: Int?
+    
+    /// native广告点击关闭
+    public var nativeADCloseSubject: PublishSubject<Any>? = PublishSubject()
+    
+    /// banner广告点击关闭
+    public var bannerADCloseSubject: PublishSubject<Any>? = PublishSubject()
     
     
     public func registerAD(completion: (() -> Void)?) {
@@ -418,6 +422,10 @@ extension TopADManager: ATNativeADDelegate {
         
     }
     
+    public func didTapCloseButton(in adView: ATNativeADView!, placementID: String!, extra: [AnyHashable : Any]!) {
+        printLog("nativeADTapClose")
+        self.nativeADCloseSubject?.onNext((adView,placementID))
+    }
 }
 
 // MARK: banner广告代理
@@ -431,8 +439,14 @@ extension TopADManager: ATBannerDelegate {
     public func bannerView(_ bannerView: ATBannerView!, didClickWithPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         
     }
+    
+    public func bannerView(_ bannerView: ATBannerView!, didTapCloseButtonWithPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+        printLog("bannerADTapClose")
+        self.bannerADCloseSubject?.onNext((bannerView,placementID))
+    }
 }
 
+// 弹屏广告
 extension TopADManager: ATInterstitialDelegate {
     public func interstitialDidShow(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         if !TopADManager.shareInstance.interstitialADIsReady() {
@@ -447,6 +461,7 @@ extension TopADManager: ATInterstitialDelegate {
     public func interstitialDidClose(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
         
     }
+    
     
     
 }
