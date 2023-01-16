@@ -67,9 +67,8 @@ public class TopADManager: NSObject {
     public func registerAD(completion: (() -> Void)?) {
         #if DEBUG
         ATAPI.setLogEnabled(true)
-        #endif
-        // 检查广告完整性
         ATAPI.integrationChecking()
+        #endif
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             if #available(iOS 14.0, *) {
                 ATTrackingManager.requestTrackingAuthorization { status in
@@ -86,9 +85,9 @@ public class TopADManager: NSObject {
     // MARK: - 开屏广告
     public func loadSplashAD() {
         
-        if  let status = ATAdManager.shared().checkSplashLoadStatus(forPlacementID: SPLASHKEY), (status.isReady == true || status.isLoading == true) {
-            return
-        }
+//        if  let status = ATAdManager.shared().checkSplashLoadStatus(forPlacementID: SPLASHKEY), (status.isReady == true || status.isLoading == true) {
+//            return
+//        }
         
         let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 100))
         label.backgroundColor = UIColor.color(.system)
@@ -125,20 +124,12 @@ public class TopADManager: NSObject {
      kATSplashExtraCountdownIntervalKey: 500]
             ATAdManager.shared().showSplash(withPlacementID: SPLASHKEY, scene: "", window: window, extra: extra, delegate: self)
         }else{
-            guard  let status = ATAdManager.shared().checkSplashLoadStatus(forPlacementID: SPLASHKEY), (status.isReady != true || status.isLoading != true) else {
-                return
-            }
-        
             self.loadSplashAD()
         }
     }
     
     // MARK: - 加载native广告
     public func loadNativeAD(nativeID: String = NATIVEADKEY) {
-
-        if let status = ATAdManager.shared().checkNativeLoadStatus(forPlacementID: nativeID), (status.isReady == true || status.isLoading == true) {
-            return
-        }
         
         let extra: [String: Any] = [
             kATExtraInfoNativeAdSizeKey: CGSize(width: 375, height: 265),
@@ -194,9 +185,6 @@ public class TopADManager: NSObject {
 
     //MARK: - 视频激励广告
     public func loadRewardVideoAD() {
-        if let status = ATAdManager.shared().checkRewardedVideoLoadStatus(forPlacementID: REWARDVIDEOKEY), (status.isReady == true || status.isLoading == true) {
-            return
-        }
 
         let extra: [String: Any] = [
             kATAdLoadingExtraMediaExtraKey:"media_val", kATAdLoadingExtraUserIDKey:"rv_test_user_id",kATAdLoadingExtraRewardNameKey:"reward_Name",kATAdLoadingExtraRewardAmountKey:3,
@@ -216,19 +204,16 @@ public class TopADManager: NSObject {
         if ATAdManager.shared().rewardedVideoReady(forPlacementID: REWARDVIDEOKEY) {
             ATAdManager.shared().showRewardedVideo(withPlacementID: REWARDVIDEOKEY, in: Tool.shared.TopViewController(), delegate: self)
         }else{
-            guard  let status = ATAdManager.shared().checkRewardedVideoLoadStatus(forPlacementID: REWARDVIDEOKEY), (status.isReady != true || status.isLoading != true) else {
-                return
-            }
             self.loadRewardVideoAD()
         }
     }
     
     // MARK: - banner位广告
     public func loadBannerAD() {
-        let status = ATAdManager.shared().checkBannerLoadStatus(forPlacementID: BANNERKEY)
-        if (status.isReady == true || status.isLoading == true) {
-            return
-        }
+//        let status = ATAdManager.shared().checkBannerLoadStatus(forPlacementID: BANNERKEY)
+//        if (status.isReady == true || status.isLoading == true) {
+//            return
+//        }
         let extra: [String: Any] = [
             kATAdLoadingExtraBannerAdSizeKey: CGSize(width: (SCREEN_WIDTH - 30), height: ceil((SCREEN_WIDTH - 30) * 90 / 600))
         ]
@@ -245,19 +230,13 @@ public class TopADManager: NSObject {
         if ATAdManager.shared().bannerAdReady(forPlacementID: BANNERKEY) {
             
         }else{
-            let status = ATAdManager.shared().checkBannerLoadStatus(forPlacementID: BANNERKEY)
-            if (status.isReady != true || status.isLoading != true) {
-                return
-            }
             self.loadBannerAD()
         }
     }
     
     // MARK: 插屏广告
     public func loadInterstitialAD() {
-        if let status = ATAdManager.shared().checkInterstitialLoadStatus(forPlacementID: INTERSTITIALKEY), (status.isReady == true || status.isLoading == true) {
-            return
-        }
+        
         let extra: [String: Any] = [
             kATInterstitialExtraAdSizeKey: CGSize(width: SCREEN_WIDTH - 30, height: 300)
         ]
@@ -274,10 +253,6 @@ public class TopADManager: NSObject {
         if ATAdManager.shared().interstitialReady(forPlacementID: INTERSTITIALKEY){
             ATAdManager.shared().showInterstitial(withPlacementID: INTERSTITIALKEY, in: Tool.shared.TopViewController(), delegate: self)
         }else{
-            let status = ATAdManager.shared().checkBannerLoadStatus(forPlacementID: BANNERKEY)
-            if (status.isReady != true || status.isLoading != true) {
-                return
-            }
             self.loadBannerAD()
         }
     }
