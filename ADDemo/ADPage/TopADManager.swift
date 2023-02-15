@@ -82,6 +82,21 @@ public class TopADManager: NSObject {
         }
     }
     
+    
+    public func loadAllAD() {
+        TopADManager.shareInstance.loadSplashAD()
+        TopADManager.shareInstance.loadNativeAD()
+        TopADManager.shareInstance.loadNativeAD(nativeID: NATIVEADKEY2)
+        TopADManager.shareInstance.loadBannerAD()
+        TopADManager.shareInstance.loadRewardVideoAD()
+    }
+    
+    public func loadZMTMAD() {
+        TopADManager.shareInstance.loadSplashAD()
+        TopADManager.shareInstance.loadNativeAD()
+        TopADManager.shareInstance.loadBannerAD()
+    }
+    
     // MARK: - 开屏广告
     public func loadSplashAD() {
         

@@ -11,6 +11,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var firstLoad: Bool = true
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let window = UIWindow.init(frame: UIScreen.main.bounds)
@@ -25,11 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func registerAD() {
         TopADManager.shareInstance.registerAD {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                TopADManager.shareInstance.loadSplashAD()
-                TopADManager.shareInstance.loadNativeAD()
-                TopADManager.shareInstance.loadNativeAD(nativeID: NATIVEADKEY2)
-                TopADManager.shareInstance.loadBannerAD()
-                TopADManager.shareInstance.loadRewardVideoAD()
+                TopADManager.shareInstance.loadAllAD()
             }
         }
     }
@@ -45,13 +42,10 @@ extension AppDelegate {
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-//        self.registerAD(completion: {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                ZMADManager.shareInstance.loadSplashAD()
-//                ZMADManager.shareInstance.loadNativeAD()
-//            }
-//        })
-        // 回到前台，逻辑待完善
-
+        if firstLoad {
+            firstLoad = false
+        }else{
+            TopADManager.shareInstance.loadAllAD()
+        }
     }
 }
