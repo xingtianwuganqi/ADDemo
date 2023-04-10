@@ -104,19 +104,32 @@ public class TopADManager: NSObject {
             return
         }
         
-        let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 100))
+        let backView = UIView.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 120))
+        backView.backgroundColor = UIColor.color(.system)
+        backView.isUserInteractionEnabled = true
+        
+        let label = UILabel.init(frame: CGRect(x: 10, y: 10, width: SCREEN_WIDTH - 20, height: 60))
         label.backgroundColor = UIColor.color(.system)
-        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        label.textColor = .white
-        label.text = "真命天喵"
-        label.textAlignment = .center
+//        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+//        label.textColor = .white
+//        label.text = "真命天喵"
+        label.numberOfLines = 2
         label.isUserInteractionEnabled = true
+        let para = NSMutableParagraphStyle.init()
+        para.lineSpacing = 10
+        para.alignment = .center
+        let attribute = NSMutableAttributedString.init()
+        attribute.append(NSAttributedString.init(string: "真命天喵", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .semibold),NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.paragraphStyle: para]))
+        attribute.append(NSAttributedString.init(string: "\n一起帮宠物找个家", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .medium),NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.paragraphStyle: para]))
+        label.attributedText = attribute
+        backView.addSubview(label)
+        
         
         let defaultADSourceStr = "{\"unit_id\":1830551,\"ad_type\":-1,\"nw_firm_id\":15,\"adapter_class\":\"ATTTSplashAdapter\",\"content\":\"{\\\"slot_id\\\":\\\"887788936\\\",\\\"personalized_template\\\":\\\"0\\\",\\\"zoomoutad_sw\\\":\\\"1\\\",\\\"button_type\\\":\\\"0\\\",\\\"dl_type\\\":\\\"0\\\",\\\"app_id\\\":\\\"5296075\\\"}\"}"
         let extra: [String: Any] = [
             kATExtraInfoRootViewControllerKey: Tool.shared.TopViewController(),
             kATSplashExtraTolerateTimeoutKey: 4]
-        ATAdManager.shared().loadAD(withPlacementID: SPLASHKEY, extra: extra, delegate: self, containerView: label, defaultAdSourceConfig: defaultADSourceStr)
+        ATAdManager.shared().loadAD(withPlacementID: SPLASHKEY, extra: extra, delegate: self, containerView: backView, defaultAdSourceConfig: defaultADSourceStr)
     }
     
     // MARK: 开屏广告是否准备好
