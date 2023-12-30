@@ -20,11 +20,11 @@ Pod::Spec.new do |spec|
   spec.homepage     = "https://github.com/xingtianwuganqi/ADDemo"
 
     spec.license      = { :type => "MIT", :file => "LICENSE" }
-  spec.swift_versions = ['5.0', '5.1', '5.2', '5.3']
+  spec.swift_versions = ['5.8', '5.9']
   
   spec.author       = { "jingjun" => "rxswift@126.com" }
   
-  spec.platform     = :ios, "11.0"
+  spec.platform     = :ios, "13.0"
 
   spec.source       = { :git => "https://github.com/xingtianwuganqi/ADDemo.git", :tag => "#{spec.version}" }
    
@@ -33,9 +33,9 @@ Pod::Spec.new do |spec|
   spec.static_framework = true
 
   spec.dependency 'BasicProject'
-  spec.dependency 'AnyThinkiOS','6.1.41'
-  spec.dependency 'AnyThinkiOS/AnyThinkTTAdapter','6.1.41'
-  spec.dependency 'AnyThinkGDTAdapter','6.1.41.1'
+  spec.dependency 'AnyThinkiOS','6.2.87'
+  spec.dependency 'AnyThinkiOS/AnyThinkTTAdapter','6.2.87'
+  spec.dependency 'AnyThinkiOS/AnyThinkGDTAdapter','6.2.87'
 
 
 end

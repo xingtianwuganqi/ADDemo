@@ -29,13 +29,11 @@ public class NativeADView: UIView {
             config.sizeToFit = true
             config.rootViewController = Tool.shared.TopViewController()
 
-            guard let offer = ATAdManager.shared().getNativeAdOffer(withPlacementID: nativeID) else {
-                return
-            }
+            let offer = ATAdManager.shared().getNativeAdOffer(withPlacementID: nativeID)
+            
 
-            guard let nativeADView = ATNativeADView.init(configuration: config, currentOffer: offer, placementID: nativeID) else {
-                return
-            }
+           let nativeADView = ATNativeADView.init(configuration: config, currentOffer: offer, placementID: nativeID)
+            
             self.subviews.forEach { view in
                 view.removeFromSuperview()
             }
