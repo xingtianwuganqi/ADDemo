@@ -97,7 +97,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 test.showNativeAD(nativeID: NATIVEADKEY2)
             }else{
                 MBProgressHUD.xy_show("信息流广告2未加载完成")
-                TopADManager.shareInstance.loadNativeAD()
+                TopADManager.shareInstance.loadNativeAD(nativeID: NATIVEADKEY2)
             }
             break
         case "激励视频":

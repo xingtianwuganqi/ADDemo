@@ -31,12 +31,20 @@ public class TopADManager: NSObject {
     
     public static let shareInstance = TopADManager()
     
-    public let nativeWidth = SCREEN_WIDTH
-    public let nativeHeight = SCREEN_WIDTH * 265 / 375
+    public var nativeWidth = SCREEN_WIDTH
+    public var nativeHeight = SCREEN_WIDTH * 265 / 375
     
     private override init() {
         
     }
+    
+    lazy var splashVC: ADSplashViewController = {
+        let backview = ADSplashViewController.init()
+        backview.view.backgroundColor = .white
+        backview.modalPresentationStyle = .overFullScreen
+        return backview
+    }()
+
     
     lazy var skipButton: UIButton = {
         let button = UIButton.init(type: .custom)
@@ -94,7 +102,9 @@ public class TopADManager: NSObject {
     public func loadZMTMAD() {
         TopADManager.shareInstance.loadSplashAD()
         TopADManager.shareInstance.loadNativeAD()
+        TopADManager.shareInstance.loadNativeAD(nativeID: NATIVEADKEY2)
         TopADManager.shareInstance.loadBannerAD()
+        TopADManager.shareInstance.loadRewardVideoAD()
     }
     
     // MARK: - 开屏广告
@@ -125,11 +135,10 @@ public class TopADManager: NSObject {
         backView.addSubview(label)
         
         
-        let defaultADSourceStr = "{\"unit_id\":1830551,\"ad_type\":-1,\"nw_firm_id\":15,\"adapter_class\":\"ATTTSplashAdapter\",\"content\":\"{\\\"slot_id\\\":\\\"887788936\\\",\\\"personalized_template\\\":\\\"0\\\",\\\"zoomoutad_sw\\\":\\\"1\\\",\\\"button_type\\\":\\\"0\\\",\\\"dl_type\\\":\\\"0\\\",\\\"app_id\\\":\\\"5296075\\\"}\"}"
         let extra: [String: Any] = [
             kATExtraInfoRootViewControllerKey: Tool.shared.TopViewController(),
             kATSplashExtraTolerateTimeoutKey: 4]
-        ATAdManager.shared().loadAD(withPlacementID: SPLASHKEY, extra: extra, delegate: self, containerView: backView, defaultAdSourceConfig: defaultADSourceStr)
+        ATAdManager.shared().loadAD(withPlacementID: SPLASHKEY, extra: extra, delegate: self, containerView: backView)
     }
     
     // MARK: 开屏广告是否准备好
@@ -140,17 +149,38 @@ public class TopADManager: NSObject {
     // MARK: 展示开屏广告
     public func showSplashAD() {
         if (ATAdManager.shared().splashReady(forPlacementID: SPLASHKEY)) {
-            if let window = UIApplication.shared.windows.first {
+            if let window = self.getKeyWindow() {
+                
+                Tool.shared.TopViewController().present(splashVC, animated: false)
+                
                 let extra: [String: Any] = [
                     kATSplashExtraCountdownKey: 5000,
                     kATSplashExtraCustomSkipButtonKey: self.skipButton,
                     kATSplashExtraCountdownIntervalKey: 500]
-                ATAdManager.shared().showSplash(withPlacementID: SPLASHKEY, scene: "", window: window, extra: extra, delegate: self)
+                ATAdManager.shared().showSplash(withPlacementID: SPLASHKEY, scene: "", window: window,in: splashVC, extra: extra, delegate: self)
+            }else{
+                printLog("-----")
             }
         }else{
             self.loadSplashAD()
         }
     }
+    
+    func getKeyWindow() -> UIWindow? {
+        if #available(iOS 15.0, *) {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,let keyWindow = windowScene.keyWindow {
+                return keyWindow
+            }else{
+                return UIApplication.shared.windows.first
+            }
+        } else {
+            if let window = UIApplication.shared.delegate?.window {
+                return window
+            }
+            return UIApplication.shared.windows.first
+        }
+    }
+
     
     // MARK: - 加载native广告
     public func loadNativeAD(nativeID: String = NATIVEADKEY) {
@@ -160,7 +190,8 @@ public class TopADManager: NSObject {
         }
         
         let extra: [String: Any] = [
-            kATExtraInfoNativeAdSizeKey: CGSize(width: 375, height: 265),
+//            kATExtraInfoNativeAdSizeKey: CGSize(width: 375, height: 265),
+            kATExtraInfoNativeAdSizeKey: CGSize(width: nativeWidth, height: nativeHeight),
             kATNativeAdSizeToFitKey: true
         ]
 
@@ -204,6 +235,8 @@ public class TopADManager: NSObject {
     // MARK: 获取广告offer
     public func getNativeOffer(adID: String = NATIVEADKEY) -> ATNativeAdOffer? {
         let offer = ATAdManager.shared().getNativeAdOffer(withPlacementID: adID)
+        TopADManager.shareInstance.nativeWidth = offer.nativeAd.nativeExpressAdViewWidth
+        TopADManager.shareInstance.nativeHeight = offer.nativeAd.nativeExpressAdViewHeight
         return offer
     }
     
@@ -297,11 +330,11 @@ extension TopADManager: ATSplashDelegate {
     }
     
     public func splashDidClick(forPlacementID placementID: String, extra: [AnyHashable : Any]) {
-        
+        self.splashVC.dismiss(animated: false)
     }
     
     public func splashDidClose(forPlacementID placementID: String, extra: [AnyHashable : Any]) {
-        
+        self.splashVC.dismiss(animated: false)
     }
     
     public func splashCountdownTime(_ countdown: Int, forPlacementID placementID: String, extra: [AnyHashable : Any]) {

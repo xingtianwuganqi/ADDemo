@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import BasicProject
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -37,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
-        
         TopADManager.shareInstance.showSplashAD()
     }
     

@@ -7,6 +7,7 @@
 
 import UIKit
 import AnyThinkNative
+import BasicProject
 
 public class NativeADTableCell: UITableViewCell {
     
@@ -29,8 +30,9 @@ public class NativeADTableCell: UITableViewCell {
         self.adView = nil
         self.contentView.addSubview(adview)
         adview.snp.makeConstraints { make in
-            make.left.right.top.bottom.equalToSuperview()
-            make.height.equalTo(TopADManager.shareInstance.nativeHeight)
+            make.left.top.bottom.equalToSuperview()
+            make.height.equalTo(adview.frame.height)
+            make.width.equalTo(SCREEN_WIDTH)
         }
         self.adView = adview
     }
