@@ -235,8 +235,8 @@ public class TopADManager: NSObject {
     // MARK: 获取广告offer
     public func getNativeOffer(adID: String = NATIVEADKEY) -> ATNativeAdOffer? {
         let offer = ATAdManager.shared().getNativeAdOffer(withPlacementID: adID)
-        TopADManager.shareInstance.nativeWidth = offer.nativeAd.nativeExpressAdViewWidth
-        TopADManager.shareInstance.nativeHeight = offer.nativeAd.nativeExpressAdViewHeight
+        TopADManager.shareInstance.nativeWidth = offer?.nativeAd.nativeExpressAdViewWidth ?? SCREEN_WIDTH
+        TopADManager.shareInstance.nativeHeight = offer?.nativeAd.nativeExpressAdViewHeight ?? (SCREEN_WIDTH * 0.6)
         return offer
     }
     
