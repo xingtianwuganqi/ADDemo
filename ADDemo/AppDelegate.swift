@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
-        TopADManager.shareInstance.showSplashAD()
+        TopADManager.shareInstance.showSplashAD(vc: Tool.shared.TopViewController())
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {

@@ -120,9 +120,6 @@ public class TopADManager: NSObject {
         
         let label = UILabel.init(frame: CGRect(x: 10, y: 10, width: SCREEN_WIDTH - 20, height: 60))
         label.backgroundColor = UIColor.color(.system)
-//        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-//        label.textColor = .white
-//        label.text = "真命天喵"
         label.numberOfLines = 2
         label.isUserInteractionEnabled = true
         let para = NSMutableParagraphStyle.init()
@@ -130,7 +127,7 @@ public class TopADManager: NSObject {
         para.alignment = .center
         let attribute = NSMutableAttributedString.init()
         attribute.append(NSAttributedString.init(string: "真命天喵", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .semibold),NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.paragraphStyle: para]))
-        attribute.append(NSAttributedString.init(string: "\n一起帮宠物找个家", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .medium),NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.paragraphStyle: para]))
+        attribute.append(NSAttributedString.init(string: "\n帮宠物找个家", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .medium),NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.paragraphStyle: para]))
         label.attributedText = attribute
         backView.addSubview(label)
         
@@ -147,12 +144,12 @@ public class TopADManager: NSObject {
     }
     
     // MARK: 展示开屏广告
-    public func showSplashAD() {
+    public func showSplashAD(vc: UIViewController) {
         if (ATAdManager.shared().splashReady(forPlacementID: SPLASHKEY)) {
             if let window = self.getKeyWindow() {
                 
                 Tool.shared.TopViewController().present(splashVC, animated: false)
-                
+                let config = ATShowConfig.init()
                 let extra: [String: Any] = [
                     kATSplashExtraCountdownKey: 5000,
                     kATSplashExtraCustomSkipButtonKey: self.skipButton,
@@ -235,8 +232,8 @@ public class TopADManager: NSObject {
     // MARK: 获取广告offer
     public func getNativeOffer(adID: String = NATIVEADKEY) -> ATNativeAdOffer? {
         let offer = ATAdManager.shared().getNativeAdOffer(withPlacementID: adID)
-        TopADManager.shareInstance.nativeWidth = offer?.nativeAd.nativeExpressAdViewWidth ?? SCREEN_WIDTH
-        TopADManager.shareInstance.nativeHeight = offer?.nativeAd.nativeExpressAdViewHeight ?? (SCREEN_WIDTH * 0.6)
+        TopADManager.shareInstance.nativeWidth = offer.nativeAd.nativeExpressAdViewWidth ?? SCREEN_WIDTH
+        TopADManager.shareInstance.nativeHeight = offer.nativeAd.nativeExpressAdViewHeight ?? (SCREEN_WIDTH * 0.6)
         return offer
     }
     

@@ -57,7 +57,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         switch text {
         case "开屏广告":
             if TopADManager.shareInstance.splashIsReady() {
-                TopADManager.shareInstance.showSplashAD()
+                TopADManager.shareInstance.showSplashAD(vc: self)
             }else{
                 MBProgressHUD.xy_show("开屏广告未加载完成")
                 TopADManager.shareInstance.loadSplashAD()
