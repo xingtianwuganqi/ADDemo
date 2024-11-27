@@ -32,7 +32,7 @@ public class NativeADView: UIView {
             let offer = ATAdManager.shared().getNativeAdOffer(withPlacementID: nativeID)
             
 
-            let nativeADView = ATNativeADView.init(configuration: config, currentOffer: offer, placementID: nativeID)
+            let nativeADView = ATNativeADView.init(configuration: config, currentOffer: offer!, placementID: nativeID)
             
             self.subviews.forEach { view in
                 view.removeFromSuperview()
@@ -49,7 +49,7 @@ public class NativeADView: UIView {
             }
 
             //渲染广告
-            offer.renderer(with: config, selfRenderView: nil, nativeADView: nativeADView)
+            offer?.renderer(with: config, selfRenderView: nil, nativeADView: nativeADView)
             
             self.addSubview(nativeADView)
             nativeADView.frame = CGRect(x: 0, y: 0, width: width, height: height)

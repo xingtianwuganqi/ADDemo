@@ -232,8 +232,8 @@ public class TopADManager: NSObject {
     // MARK: 获取广告offer
     public func getNativeOffer(adID: String = NATIVEADKEY) -> ATNativeAdOffer? {
         let offer = ATAdManager.shared().getNativeAdOffer(withPlacementID: adID)
-        TopADManager.shareInstance.nativeWidth = offer.nativeAd.nativeExpressAdViewWidth ?? SCREEN_WIDTH
-        TopADManager.shareInstance.nativeHeight = offer.nativeAd.nativeExpressAdViewHeight ?? (SCREEN_WIDTH * 0.6)
+        TopADManager.shareInstance.nativeWidth = offer?.nativeAd.nativeExpressAdViewWidth ?? SCREEN_WIDTH
+        TopADManager.shareInstance.nativeHeight = offer?.nativeAd.nativeExpressAdViewHeight ?? (SCREEN_WIDTH * 0.6)
         return offer
     }
     
@@ -320,6 +320,34 @@ public class TopADManager: NSObject {
 
 // MARK: 开屏广告代理
 extension TopADManager: ATSplashDelegate {
+    public func didRevenue(forPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+        
+    }
+    
+    public func didStartLoadingADSource(withPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+        
+    }
+    
+    public func didFinishLoadingADSource(withPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+        
+    }
+    
+    public func didFailToLoadADSource(withPlacementID placementID: String!, extra: [AnyHashable : Any]!, error: (any Error)!) {
+        
+    }
+    
+    public func didStartBiddingADSource(withPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+        
+    }
+    
+    public func didFinishBiddingADSource(withPlacementID placementID: String!, extra: [AnyHashable : Any]!) {
+        
+    }
+    
+    public func didFailBiddingADSource(withPlacementID placementID: String!, extra: [AnyHashable : Any]!, error: (any Error)!) {
+        
+    }
+    
     public func splashDidShow(forPlacementID placementID: String, extra: [AnyHashable : Any]) {
         if !TopADManager.shareInstance.splashIsReady() {
             TopADManager.shareInstance.loadSplashAD()
