@@ -33,9 +33,10 @@ Pod::Spec.new do |spec|
   spec.static_framework = true
 
   spec.dependency 'BasicProject'
-  spec.dependency 'AnyThinkiOS','6.4.19'
-  spec.dependency 'AnyThinkTTSDKAdapter','6.4.19'
-  spec.dependency 'AnyThinkGDTSDKAdapter','6.4.19'
+  spec.dependency 'AnyThinkiOS','6.4.86'
+  spec.dependency 'AnyThinkTTSDKAdapter','6.4.86'
+  spec.dependency 'AnyThinkGDTSDKAdapter','6.4.86'
+
 
 
 end

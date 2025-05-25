@@ -6,9 +6,9 @@ target 'ADDemo' do
   use_frameworks!
 
   pod 'BasicProject', :path=>'./../iOS_BasicProject'
-  pod 'AnyThinkiOS','6.4.19'
-  pod 'AnyThinkTTSDKAdapter','6.4.19'
-  pod 'AnyThinkGDTSDKAdapter','6.4.19'
+  pod 'AnyThinkiOS','6.4.86'
+  pod 'AnyThinkTTSDKAdapter','6.4.86'
+  pod 'AnyThinkGDTSDKAdapter','6.4.86'
 
 
 
