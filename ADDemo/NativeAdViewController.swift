@@ -7,7 +7,7 @@
 
 import UIKit
 import BasicProject
-import AnyThinkNative
+import AnyThinkSDK
 import MBProgressHUD
 
 class NativeAdViewController: UIViewController {

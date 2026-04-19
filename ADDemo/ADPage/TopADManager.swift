@@ -9,13 +9,8 @@ import UIKit
 import Foundation
 import BasicProject
 import AnyThinkSDK
-import AppTrackingTransparency
-import AnyThinkSplash
-import AnyThinkNative
-import AnyThinkRewardedVideo
-import AnyThinkBanner
-import AnyThinkInterstitial
 import RxSwift
+import AppTrackingTransparency
 
 public let ADAPPID = "a628a37c6257cf"
 public let ADAPPKEY = "34957f626411ed7ac73916e8b4031128"
@@ -30,6 +25,7 @@ public let INTERSTITIALKEY = "b628a3952eb140"
 public class TopADManager: NSObject {
     
     public static let shareInstance = TopADManager()
+    private let adLoadQueue = DispatchQueue(label: "com.lovecat.topad.load", qos: .utility)
     
     public var nativeWidth = SCREEN_WIDTH
     public var nativeHeight = SCREEN_WIDTH * 265 / 375
@@ -71,6 +67,24 @@ public class TopADManager: NSObject {
     /// banner广告点击关闭
     public var bannerADCloseSubject: PublishSubject<Any>? = PublishSubject()
     
+    private func asyncLoad(_ work: @escaping () -> Void) {
+        adLoadQueue.async(execute: work)
+    }
+    
+    private func asyncLoad(after delay: TimeInterval, _ work: @escaping () -> Void) {
+        adLoadQueue.asyncAfter(deadline: .now() + delay, execute: work)
+    }
+    
+    private func currentTopViewController() -> UIViewController? {
+        if Thread.isMainThread {
+            return Tool.shared.TopViewController()
+        }
+        var viewController: UIViewController?
+        DispatchQueue.main.sync {
+            viewController = Tool.shared.TopViewController()
+        }
+        return viewController
+    }
     
     public func registerAD(completion: (() -> Void)?) {
         #if DEBUG
@@ -80,12 +94,20 @@ public class TopADManager: NSObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             if #available(iOS 14.0, *) {
                 ATTrackingManager.requestTrackingAuthorization { status in
-                    try? ATAPI.sharedInstance().start(withAppID: ADAPPID, appKey: ADAPPKEY)
-                    completion?()
+                    self.asyncLoad {
+                        try? ATAPI.sharedInstance().start(withAppID: ADAPPID, appKey: ADAPPKEY)
+                        DispatchQueue.main.async {
+                            completion?()
+                        }
+                    }
                 }
             }else{
-                try? ATAPI.sharedInstance().start(withAppID: ADAPPID, appKey: ADAPPKEY)
-                completion?()
+                self.asyncLoad {
+                    try? ATAPI.sharedInstance().start(withAppID: ADAPPID, appKey: ADAPPKEY)
+                    DispatchQueue.main.async {
+                        completion?()
+                    }
+                }
             }
         }
     }
@@ -93,18 +115,22 @@ public class TopADManager: NSObject {
     
     public func loadAllAD() {
         TopADManager.shareInstance.loadSplashAD()
-        TopADManager.shareInstance.loadNativeAD()
-        TopADManager.shareInstance.loadNativeAD(nativeID: NATIVEADKEY2)
-        TopADManager.shareInstance.loadBannerAD()
-        TopADManager.shareInstance.loadRewardVideoAD()
+        asyncLoad {
+            TopADManager.shareInstance.loadNativeAD()
+        }
+        asyncLoad(after: 0.15) {
+            TopADManager.shareInstance.loadNativeAD(nativeID: NATIVEADKEY2)
+        }
+        asyncLoad(after: 0.3) {
+            TopADManager.shareInstance.loadBannerAD()
+        }
+        asyncLoad(after: 0.45) {
+            TopADManager.shareInstance.loadRewardVideoAD()
+        }
     }
     
     public func loadZMTMAD() {
-        TopADManager.shareInstance.loadSplashAD()
-        TopADManager.shareInstance.loadNativeAD()
-        TopADManager.shareInstance.loadNativeAD(nativeID: NATIVEADKEY2)
-        TopADManager.shareInstance.loadBannerAD()
-        TopADManager.shareInstance.loadRewardVideoAD()
+        loadAllAD()
     }
     
     // MARK: - 开屏广告
@@ -181,13 +207,18 @@ public class TopADManager: NSObject {
     
     // MARK: - 加载native广告
     public func loadNativeAD(nativeID: String = NATIVEADKEY) {
+        if Thread.isMainThread {
+            asyncLoad { [weak self] in
+                self?.loadNativeAD(nativeID: nativeID)
+            }
+            return
+        }
         
         if ATAdManager.shared().nativeAdReady(forPlacementID: nativeID) {
             return
         }
         
         let extra: [String: Any] = [
-//            kATExtraInfoNativeAdSizeKey: CGSize(width: 375, height: 265),
             kATExtraInfoNativeAdSizeKey: CGSize(width: nativeWidth, height: nativeHeight),
             kATNativeAdSizeToFitKey: true
         ]
@@ -240,14 +271,20 @@ public class TopADManager: NSObject {
 
     //MARK: - 视频激励广告
     public func loadRewardVideoAD() {
+        if Thread.isMainThread {
+            asyncLoad { [weak self] in
+                self?.loadRewardVideoAD()
+            }
+            return
+        }
         
         if ATAdManager.shared().rewardedVideoReady(forPlacementID: REWARDVIDEOKEY) {
             return
         }
-
+        let rootViewController = currentTopViewController()
         let extra: [String: Any] = [
             kATAdLoadingExtraMediaExtraKey:"media_val", kATAdLoadingExtraUserIDKey:"rv_test_user_id",kATAdLoadingExtraRewardNameKey:"reward_Name",kATAdLoadingExtraRewardAmountKey:3,
-                kATExtraInfoRootViewControllerKey:Tool.shared.TopViewController(),
+                kATExtraInfoRootViewControllerKey: rootViewController as Any,
         ]
         ATAdManager.shared().loadAD(withPlacementID: REWARDVIDEOKEY, extra: extra, delegate: self)
     }
@@ -269,6 +306,12 @@ public class TopADManager: NSObject {
     
     // MARK: - banner位广告
     public func loadBannerAD() {
+        if Thread.isMainThread {
+            asyncLoad { [weak self] in
+                self?.loadBannerAD()
+            }
+            return
+        }
         if ATAdManager.shared().bannerAdReady(forPlacementID: BANNERKEY) {
             return
         }
@@ -294,6 +337,12 @@ public class TopADManager: NSObject {
     
     // MARK: 插屏广告
     public func loadInterstitialAD() {
+        if Thread.isMainThread {
+            asyncLoad { [weak self] in
+                self?.loadInterstitialAD()
+            }
+            return
+        }
         if ATAdManager.shared().interstitialReady(forPlacementID: INTERSTITIALKEY) {
             return
         }

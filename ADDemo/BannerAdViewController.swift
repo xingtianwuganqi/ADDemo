@@ -7,7 +7,7 @@
 
 import UIKit
 import BasicProject
-import AnyThinkBanner
+import AnyThinkSDK
 
 class BannerAdViewController: UIViewController {
     

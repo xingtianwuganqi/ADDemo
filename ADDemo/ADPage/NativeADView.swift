@@ -7,7 +7,7 @@
 
 import UIKit
 import BasicProject
-import AnyThinkNative
+import AnyThinkSDK
 public class NativeADView: UIView {
     var adView: ATNativeADView?
         

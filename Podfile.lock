@@ -1,0 +1,111 @@
+PODS:
+  - Ads-CN/BUAdSDK (7.4.0.4)
+  - Alamofire (5.10.2)
+  - AnyThinkiOS (6.5.60):
+    - AnyThinkiOS/AnyThinkSDK (= 6.5.60)
+  - AnyThinkiOS/AnyThinkSDK (6.5.60)
+  - AnyThinkMediationAdxSmartdigimktCNAdapter (6.5.63.2.0):
+    - AnyThinkiOS (>= 6.5.60)
+    - SmartdigimktCNSDK (= 6.5.63)
+  - AnyThinkMediationTTAdapter (7.4.0.4.2.1):
+    - Ads-CN/BUAdSDK (= 7.4.0.4)
+    - AnyThinkiOS (>= 6.5.60)
+  - BasicProject (0.0.1):
+    - DZNEmptyDataSet
+    - MBProgressHUD
+    - MJRefresh
+    - Moya/RxSwift
+    - ReachabilitySwift
+    - ReactorKit
+    - RxCocoa
+    - RxSwift
+    - SDWebImage
+    - SmartCodable
+    - SnapKit
+    - URLNavigator
+  - DZNEmptyDataSet (1.8.1)
+  - MBProgressHUD (1.2.0)
+  - MJRefresh (3.7.9)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - Moya/RxSwift (15.0.0):
+    - Moya/Core
+    - RxSwift (~> 6.0)
+  - ReachabilitySwift (5.2.4)
+  - ReactorKit (3.2.0):
+    - RxSwift (~> 6.0)
+    - WeakMapTable (~> 1.1)
+  - RxCocoa (6.9.0):
+    - RxRelay (= 6.9.0)
+    - RxSwift (= 6.9.0)
+  - RxRelay (6.9.0):
+    - RxSwift (= 6.9.0)
+  - RxSwift (6.9.0)
+  - SDWebImage (5.21.0):
+    - SDWebImage/Core (= 5.21.0)
+  - SDWebImage/Core (5.21.0)
+  - SmartCodable (4.3.9)
+  - SmartdigimktCNSDK (6.5.63)
+  - SnapKit (5.7.1)
+  - URLNavigator (2.5.1)
+  - WeakMapTable (1.2.0)
+
+DEPENDENCIES:
+  - AnyThinkiOS (= 6.5.60)
+  - AnyThinkMediationAdxSmartdigimktCNAdapter (= 6.5.63.2.0)
+  - AnyThinkMediationTTAdapter (= 7.4.0.4.2.1)
+  - BasicProject (from `./../iOS_BasicProject`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Ads-CN
+    - Alamofire
+    - AnyThinkiOS
+    - AnyThinkMediationAdxSmartdigimktCNAdapter
+    - AnyThinkMediationTTAdapter
+    - DZNEmptyDataSet
+    - MBProgressHUD
+    - MJRefresh
+    - Moya
+    - ReachabilitySwift
+    - ReactorKit
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+    - SDWebImage
+    - SmartCodable
+    - SmartdigimktCNSDK
+    - SnapKit
+    - URLNavigator
+    - WeakMapTable
+
+EXTERNAL SOURCES:
+  BasicProject:
+    :path: "./../iOS_BasicProject"
+
+SPEC CHECKSUMS:
+  Ads-CN: 1e14aa075f1bd09b110472f39aa7d31f916313aa
+  Alamofire: 7193b3b92c74a07f85569e1a6c4f4237291e7496
+  AnyThinkiOS: 11e8091c7ede45edc20ea4edb38b0ac1d14c6b45
+  AnyThinkMediationAdxSmartdigimktCNAdapter: 22e771a646c423c3b60caf95f48e3be3bdc583fc
+  AnyThinkMediationTTAdapter: b688cb2a98e069ef688c470a9fee33e197b70c68
+  BasicProject: a24651210884a36cbdac7fa40c79aa124eecb868
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  ReachabilitySwift: 32793e867593cfc1177f5d16491e3a197d2fccda
+  ReactorKit: e8b11d6b9c415405f381669b095c154a05b59eca
+  RxCocoa: ac16414696ae706516be3e1ab00fcce5bdc9be8a
+  RxRelay: 6b0c930e5cef57d5fe2032571e5e65b78e3cbdb1
+  RxSwift: 31649ace6aceeb422e16ff71c60804f9c3281ed9
+  SDWebImage: f84b0feeb08d2d11e6a9b843cb06d75ebf5b8868
+  SmartCodable: efc682e18fb5eac77f4c0497e37c79590710c192
+  SmartdigimktCNSDK: e5fddb83852f68bf9c204e74ac4178eb7d30e652
+  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
+  URLNavigator: e9c0426ba6e6ac57f34d018bbf3df840797f984d
+  WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
+
+PODFILE CHECKSUM: 630707ae5522e97592d7c00950df420d1c4b4f1d
+
+COCOAPODS: 1.16.2

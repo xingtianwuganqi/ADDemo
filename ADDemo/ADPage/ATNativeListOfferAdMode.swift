@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import AnyThinkNative
+import AnyThinkSDK
 
 public struct ATNativeListOfferAdMode {
     public init() {}
