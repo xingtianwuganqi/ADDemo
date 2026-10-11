@@ -6,11 +6,10 @@ target 'ADDemo' do
   use_frameworks!
 
   pod 'BasicProject', :path=>'./../iOS_BasicProject'
-  pod 'AnyThinkiOS','6.5.60'
+  pod 'AnyThinkiOS','6.5.83'
   #Anythink Kuying Adx SDK(necessary)
-  pod 'AnyThinkMediationAdxSmartdigimktCNAdapter','6.5.63.2.0'
-  pod 'AnyThinkMediationTTAdapter','7.4.0.4.2.1'
-#  pod 'AnyThinkMediationGDTAdapter','4.15.75.0'
+  pod 'AnyThinkMediationAdxSmartdigimktCNAdapter','6.5.90.2.1'
+  pod 'AnyThinkMediationTTAdapter','7.7.0.8.2.0'
 
 
 

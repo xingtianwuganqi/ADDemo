@@ -283,7 +283,7 @@ public class TopADManager: NSObject {
         }
         let rootViewController = currentTopViewController()
         let extra: [String: Any] = [
-            kATAdLoadingExtraMediaExtraKey:"media_val", kATAdLoadingExtraUserIDKey:"rv_test_user_id",kATAdLoadingExtraRewardNameKey:"reward_Name",kATAdLoadingExtraRewardAmountKey:3,
+            kATAdLoadingExtraUserIDKey: String(UserManager.shared.userInfo?.id ?? 0), kATAdLoadingExtraRewardNameKey: "topic_promotion", kATAdLoadingExtraRewardAmountKey: 1,
                 kATExtraInfoRootViewControllerKey: rootViewController as Any,
         ]
         ATAdManager.shared().loadAD(withPlacementID: REWARDVIDEOKEY, extra: extra, delegate: self)
@@ -480,7 +480,7 @@ extension TopADManager: ATRewardedVideoDelegate {
     
     // 播放失败，直接让
     public func rewardedVideoDidFailToPlay(forPlacementID placementID: String, error: Error, extra: [AnyHashable : Any]) {
-        self.rewardVideoRewardSuccess?()
+        printLog("视频广告播放失败 --- \(error.localizedDescription)")
     }
     
     public func rewardedVideoDidClose(forPlacementID placementID: String, rewarded: Bool, extra: [AnyHashable : Any]) {
@@ -493,6 +493,11 @@ extension TopADManager: ATRewardedVideoDelegate {
     // 激励成功
     public func rewardedVideoDidRewardSuccess(forPlacemenID placementID: String, extra: [AnyHashable : Any]) {
         // 激励成功
+        self.rewardVideoRewardSuccess?()
+    }
+    
+    // 二次激励成功，沿用现有的奖励通知。
+    public func onRewardedSuccessRetry(forPlacemenID placementID: String, extra: [AnyHashable : Any]?) {
         self.rewardVideoRewardSuccess?()
     }
     

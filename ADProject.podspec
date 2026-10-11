@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
 
 
   spec.name         = "ADProject"
-  spec.version      = "0.0.4"
+  spec.version      = "0.0.5"
   spec.summary      = "ADProject Demo"
 
   spec.description  = <<-DESC
@@ -33,11 +33,9 @@ Pod::Spec.new do |spec|
   spec.static_framework = true
 
   spec.dependency 'BasicProject'
-  spec.dependency 'AnyThinkiOS','6.5.60'
-  spec.dependency 'AnyThinkMediationAdxSmartdigimktCNAdapter','6.5.63.2.0'
-  spec.dependency 'AnyThinkMediationTTAdapter','7.4.0.4.2.1'
-
-
+  spec.dependency 'AnyThinkiOS','6.5.83'
+  spec.dependency 'AnyThinkMediationAdxSmartdigimktCNAdapter','6.5.90.2.1'
+  spec.dependency 'AnyThinkMediationTTAdapter','7.7.0.8.2.0'
 
 
 end
