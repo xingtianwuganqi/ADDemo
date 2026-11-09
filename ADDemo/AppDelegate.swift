@@ -15,12 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var firstLoad: Bool = true
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let window = UIWindow.init(frame: UIScreen.main.bounds)
-        let navi = UINavigationController.init(rootViewController: ViewController())
-        window.rootViewController = navi
-        self.window = window
-        window.makeKeyAndVisible()
-        registerAD()
         return true
     }
     
@@ -34,6 +28,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
 
+}
+
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    var window: UIWindow?
+    private var firstActivation = true
+
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard let windowScene = scene as? UIWindowScene else { return }
+        let window = UIWindow(windowScene: windowScene)
+        window.rootViewController = UINavigationController(rootViewController: ViewController())
+        self.window = window
+        (UIApplication.shared.delegate as? AppDelegate)?.window = window
+        window.makeKeyAndVisible()
+        (UIApplication.shared.delegate as? AppDelegate)?.registerAD()
+    }
+
+    func sceneWillEnterForeground(_ scene: UIScene) {
+        guard !firstActivation else { return }
+        TopADManager.shareInstance.showSplashAD(vc: Tool.shared.TopViewController())
+    }
+
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        if firstActivation {
+            firstActivation = false
+        } else {
+            TopADManager.shareInstance.loadAllAD()
+        }
+    }
 }
 
 extension AppDelegate {
